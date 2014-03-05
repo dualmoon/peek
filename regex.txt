@@ -1,0 +1,5 @@
+str.replace(/(www.)?imgur\.com\/(.*)/g, "i.imgur.com/$2.png")
+
+(www.)?imgur\.com\/(a|gallery)
+
+(www.)?imgur\.com\/(?:gallery\/)?(.*)

@@ -1,0 +1,71 @@
+extends layout
+
+block head
+    script(src="javascripts/holder.js")
+    link(href="stylesheets/lightview/lightview.css", rel="stylesheet")
+    style.
+        #image {padding-bottom: 40px}
+        .image-container-inner {width:600px;display:block;margin-left:auto;margin-right:auto}
+    <!--[if lt IE 9]>
+    script(src="javascripts/excanvas/excanvas.js")
+    <![endif]-->
+
+block content
+    p.lead Peek
+    .image-container
+        .image-container-inner
+            a#lightbox.lightview
+                img#image(data-src="holder.js/400x400/text:enter url below", alt="this is where the image will appear", data-scale="best-fit-down", data-align="center")
+    form#form(role="form")
+        .row
+            .col-md-6.col-md-offset-3
+                #notice.alert(style="display:none")
+                    button.close(type="button", data-dismiss="alert", aria-hidden="true") &times;
+                    test test test test test
+        .row
+            .col-md-8.col-md-offset-2.input-group.input-group-lg
+                label.input-group-addon(for="rehostImgURL") >
+                input.form-control(type="url",id="rehostImgURL",placeholder="Enter URL")
+                span.input-group-btn
+                    button.btn.btn-primary#btnGo(type="button") Submit
+
+block addl-js
+    script(src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js")
+    script(src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/additional-methods.min.js")
+    script(src="javascripts/lightview/lightview.js")
+    script(src="javascripts/spinners/spinners.min.js")
+    script.
+        var v = $('#rehostImgURL');
+        v.validate();
+        $('document').ready(function(){
+            $('#btnGo').click(function(){
+                if(v.val() && v.valid()){
+                    if(true){ //this is where we will test for the url being good
+                        $('#btnGo').attr("disabled", true);
+                        setTimeout(function(){$('#btnGo').attr("disabled",false)},2000);
+                        var url = "/getimg?"+$('#rehostImgURL').val()
+                        var $xhr = $.ajax(url)
+                        .done(function(data){
+                            $('#image').attr({"src":data})
+                            .removeAttr('data-src');
+                            $('#lightbox').attr({"href":data});
+                        })
+                        .fail(function(){
+                            var n = $('#notice');
+                            n.text("That URL couldn't be loaded");
+                            n.addClass('alert-danger');
+                            n.removeAttr('style');
+                            setTimeout(function(){n.fadeOut()}, 5000);
+                        });
+                        
+                    }
+                } else {
+                    //pop up an error
+                    var n = $('#notice');
+                    n.text('Please enter a valid URL');
+                    n.addClass('alert-danger');
+                    n.removeAttr('style');
+                    setTimeout(function(){n.fadeOut()}, 5000);
+                };
+            });
+        })

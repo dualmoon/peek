@@ -1,0 +1,15 @@
+/*
+    Document   : assets/css/starter.css
+    Created on : 2014-02-27 05:03 PM
+    Author     : dualmoon
+    Description:
+    Purpose of the stylesheet follows.
+    To change this template use Tools | Templates.
+*/
+ body {
+    padding-top: 50px;
+}
+.starter-template {
+    padding: 40px 15px;
+    text-align: center;
+}
