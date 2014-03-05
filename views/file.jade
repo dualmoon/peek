@@ -1,0 +1,22 @@
+extends layout
+
+block content
+    p.lead Peek
+    form#form(role="form")
+        .row
+            .col-md-6.col-md-offset-3
+                #notice.alert(style="display:none")
+                    button.close(type="button", data-dismiss="alert", aria-hidden="true") &times;
+                    test test test test test
+        .row
+            .col-md-8.col-md-offset-2.input-group.input-group-lg
+                label.input-group-addon(for="rehostFileURL") >
+                input.form-control(type="url",id="rehostFileURL",placeholder="Enter URL")
+                span.input-group-btn
+                    button.btn.btn-primary#btnGo(type="button") Submit
+
+block addl-js
+    script(src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js")
+    script(src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/additional-methods.min.js")
+    script.
+        /* */

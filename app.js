@@ -34,6 +34,8 @@ if ('development' == app.get('env')) {
 
 app.get('/', routes.index);
 app.get('/image', routes.image);
+app.get('/file', routes.file);
+
 app.get('/getimg', rehost.getImg);
 app.get('/users', user.list);
 
