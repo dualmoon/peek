@@ -4,17 +4,18 @@ exports.getImg = function(req, res) {
     var rqurl = req.url.split("?")[1];
     var test = true;
     //later I will rewrite imgur image page urls to direct images
+    rqurl = rqurl.replace(/\s/g,''); // probably unncessary
     if(/((http:\/\/)|^)(www.)?imgur\.com\//.test(rqurl)) {
         var rest = rqurl.replace(/((http:\/\/)|^)(www.)?imgur\.com\//, "");
-        if(/gallery/.test(rest)){
-            rest=rest.replace(/gallery/,"");
-            rest=rest.replace(/\//,"");
+        if(/gallery/.test(rest)) {
+            rest = rest.replace(/gallery/, "");
+            rest = rest.replace(/\//, "");
         } else if(/^a\//.test(rest)) {
             test = false;
         }
-        rqurl = 'http://i.imgur.com/'+rest+'.jpg';
+        rqurl = 'http://i.imgur.com/' + rest + '.jpg';
     } //maybe the same for twimg
-    console.log("DEBUG: about to request "+rqurl);
+    console.log("DEBUG: about to request " + rqurl);
     var rq = request(rqurl, function(e, r, body) {
         var ctype = r.headers['content-type'];
         if(!e && r.statusCode == 200 && ctype.indexOf('image') > -1 && test) {

@@ -39,6 +39,7 @@ block addl-js
         v.validate();
         $('document').ready(function(){
             $('#btnGo').click(function(){
+                v.val(v.val().replace(/\s/g,''));
                 if(v.val() && v.valid()){
                     if(true){ //this is where we will test for the url being good
                         $('#btnGo').attr("disabled", true);
