@@ -47,9 +47,9 @@ block addl-js
                         var url = "/getimg?"+$('#rehostImgURL').val()
                         var $xhr = $.ajax(url)
                         .done(function(data){
-                            $('#image').attr({"src":data})
+                            $('#image').attr({"src":data.datauri,"style":"width:"+data.width+";height:"+data.height,"width":data.width,"height":data.height})
                             .removeAttr('data-src');
-                            $('#lightbox').attr({"href":data});
+                            $('#lightbox').attr({"href":data.datauri,"data-lightview-options":"width:"+data.width+",height:"+data.height});
                         })
                         .fail(function(){
                             var n = $('#notice');
